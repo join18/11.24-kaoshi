@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://www.isqqw.com/dep/echarts/map/js/china.js"></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #box {
+        width: 600px;
+        height: 500px;
+        background-color: white;
+        float: left;
+        border-radius: 10px;
+        border: 1px solid rgb(156, 153, 153);
+      }
+      #head {
+        width: 1200px;
+        height: 120px;
+        border-bottom: 1px solid rgb(124, 121, 121);
+      }
+      #bigbox {
+        width: 1250px;
+        height: 700px;
+        margin: 100px auto;
+      }
+      ul {
+        list-style: none;
+      }
+      #one {
+        width: 600px;
+        height: 50px;
+        background-color: rgb(244, 244, 244);
+        line-height: 50px;
+        border-bottom: 1px solid rgb(156, 153, 153);
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+      #one li {
+        float: left;
+      }
+      #one li:nth-of-type(1) {
+        margin-right: 250px;
+        margin-left: 100px;
+      }
+      #one li:nth-of-type(2) {
+        margin-right: 70px;
+      }
+      #two {
+        width: 600px;
+        height: 50px;
+        border-bottom: 1px solid rgb(156, 153, 153);
+        line-height: 50px;
+      }
+      #two li {
+        float: left;
+      }
+      #two li:nth-of-type(1) {
+        margin-left: 40px;
+        margin-right: 50px;
+      }
+      #two li:nth-of-type(2) {
+        margin-right: 315px;
+      }
+      #two li:nth-of-type(3) {
+        margin-right: 70px;
+      }
+      #head {
+        margin-bottom: 10px;
+      }
+      #head {
+        width: 1200px;
+        height: 100px;
+        border-bottom: 1px solid rgb(97, 93, 93);
+      }
+      #head li {
+        float: left;
+        width: 150px;
+        height: 60px;
+        margin-top: 15px;
+        margin-left: 50px;
+        border-left: 1px solid black;
+        padding-left: 30px;
+        color: rgb(122, 125, 127);
+      }
+      #head li:nth-of-type(1) {
+        border: none;
+      }
+      #head p {
+        margin-top: 20px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bigbox">
+      <div id="head">
+        <ul>
+          <li>
+            浏览量(PV)
+            <p>50</p>
+          </li>
+          <li>
+            访客数(UV)
+            <p>27</p>
+          </li>
+          <li>
+            IP数
+            <p>7</p>
+          </li>
+          <li>
+            跳出率
+            <p>87.5%</p>
+          </li>
+          <li>
+            平均访问时间
+            <p>00:04:08</p>
+          </li>
+        </ul>
+      </div>
+      <div id="main" style="width: 600px; height: 500px; float: left"></div>
+      <div id="box">
+        <div id="one">
+          <ul>
+            <li>省份</li>
+            <li>浏览量(PV)</li>
+            <li>占比</li>
+          </ul>
+        </div>
+        <div id="two">
+          <ul>
+            <li>1</li>
+            <li>河南</li>
+            <li>43</li>
+            <li>86%</li>
+          </ul>
+        </div>
+        <div id="two">
+          <ul>
+            <li>2</li>
+            <li>广东</li>
+            <li style="margin-left: 10px">4</li>
+            <li>8%</li>
+          </ul>
+        </div>
+        <div id="two">
+          <ul>
+            <li>3</li>
+            <li>其余地区</li>
+            <li style="margin-left: -20px">3</li>
+            <li>6%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var myChart = echarts.init(document.getElementById("main"));
+      var mapName = "china";
+      var data = [
+        { name: "", value: 5 },
+        { name: "", value: 14 },
+        { name: "", value: 157 },
+        { name: "", value: 110 },
+        { name: "", value: 40 },
+        { name: "", value: 40 },
+        { name: "", value: 40 },
+        { name: "", value: 60 },
+        { name: "", value: 10 },
+        { name: "", value: 60 },
+        { name: "", value: 50 },
+        { name: "", value: 151 },
+        { name: "", value: 60 },
+        { name: "", value: 74 },
+        { name: "", value: 200 },
+        { name: "", value: 100 },
+        { name: "", value: 40 },
+        { name: "", value: 50 },
+        { name: "", value: 40 },
+        { name: "", value: 120 },
+        { name: "", value: 135 },
+        { name: "", value: 90 },
+        { name: "", value: 25 },
+        { name: "", value: 100 },
+        { name: "", value: 60 },
+        { name: "", value: 20 },
+        { name: "", value: 110 },
+        { name: "", value: 32 },
+        { name: "", value: 10 },
+        { name: "", value: 100 },
+        { name: "", value: 40 },
+      ];
+
+      var geoCoordMap = {};
+      var toolTipData = [
+        {
+          name: "",
+          value: 5,
+          areas: ["长沙", "株洲", "益阳"],
+        },
+        {
+          name: "",
+          value: 3,
+          areas: ["合肥", "芜湖"],
+        },
+        {
+          name: "",
+          value: 80,
+          areas: ["济南", "青岛", "淄博", "烟台", "威海", "临沂"],
+        },
+        {
+          name: "",
+          value: 35,
+          areas: ["成都", "攀枝花", "乐山", "泸州"],
+        },
+        {
+          name: "",
+          value: 27,
+          areas: ["昆明", "玉溪", "丽江", "普洱", "临沧"],
+        },
+        {
+          name: "",
+          value: 13,
+          areas: ["哈尔滨", "鹤岗", "黑河", "绥化", "大庆", "佳木斯"],
+        },
+        {
+          name: "",
+          value: 42,
+          areas: ["兰州", "嘉峪关", "天水", "酒泉"],
+        },
+      ];
+
+      /*获取地图数据*/
+      myChart.showLoading();
+      var mapFeatures = echarts.getMap(mapName).geoJson.features;
+      myChart.hideLoading();
+      mapFeatures.forEach(function (v) {
+        // 地区名称
+        var name = v.properties.name;
+        // 地区经纬度
+        geoCoordMap[name] = v.properties.cp;
+      });
+
+      var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+          var geoCoord = geoCoordMap[data[i].name];
+          if (geoCoord) {
+            res.push({
+              name: data[i].name,
+              value: geoCoord.concat(data[i].value),
+            });
+          }
+        }
+        return res;
+      };
+      option = {
+        backgroundColor: "",
+        title: {
+          show: true,
+          text: "",
+          x: "center",
+          top: "10",
+          textStyle: {
+            color: "#fff",
+            fontFamily: "等线",
+            fontSize: 18,
+          },
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: function (params) {
+            if (typeof params.value[2] == "undefined") {
+              var toolTiphtml = "";
+              for (var i = 0; i < toolTipData.length; i++) {
+                if (params.name == toolTipData[i].name) {
+                  toolTiphtml +=
+                    toolTipData[i].name + "：" + toolTipData[i].value;
+                }
+              }
+              console.log(toolTiphtml);
+              // console.log(convertData(data))
+              return toolTiphtml;
+            } else {
+              var toolTiphtml = "";
+              for (var i = 0; i < toolTipData.length; i++) {
+                if (params.name == toolTipData[i].name) {
+                  toolTiphtml +=
+                    toolTipData[i].name + "：" + toolTipData[i].value;
+                }
+              }
+              console.log(toolTiphtml);
+
+              return toolTiphtml;
+            }
+          },
+          backgroundColor: "#fff",
+          borderColor: "#333",
+          padding: [5, 10],
+          textStyle: {
+            color: "#333",
+            fontSize: "16",
+          },
+        },
+        geo: {
+          layoutCenter: ["45%", "48%"], //位置
+          layoutSize: "100%", //大小
+          show: true,
+          map: mapName,
+          roam: true,
+          label: {
+            normal: {
+              show: false,
+              textStyle: {
+                color: "#fff",
+              },
+            },
+            emphasis: {
+              show: true,
+              textStyle: {
+                color: "#fff",
+              },
+            },
+          },
+          itemStyle: {
+            normal: {
+              borderColor: "rgba(147, 235, 248, 1)",
+              borderWidth: 1,
+              areaColor: {
+                type: "radial",
+                x: 0.5,
+                y: 0.5,
+                r: 0.8,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "rgba(147, 235, 248, 0)", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(147, 235, 248, .2)", // 100% 处的颜色
+                  },
+                ],
+                globalCoord: false, // 缺省为 false
+              },
+              // shadowColor: 'rgba(128, 217, 248, 1)',
+              shadowColor: "rgba(255, 255, 255, 1)",
+              shadowOffsetX: -2,
+              shadowOffsetY: 2,
+              shadowBlur: 10,
+            },
+            emphasis: {
+              areaColor: "#389BB7",
+              borderWidth: 0,
+            },
+          },
+        },
+        series: [
+          {
+            type: "map",
+            map: mapName,
+            geoIndex: 0,
+            aspectScale: 0.9, //长宽比
+            zoom: 1,
+            showLegendSymbol: false,
+            roam: true,
+            itemStyle: {
+              normal: {
+                areaColor: "#031525",
+                borderColor: "#3B5077",
+              },
+              emphasis: {
+                areaColor: "#2B91B7",
+              },
+            },
+            roam: true,
+            animation: false,
+            data: data,
+          },
+          {
+            name: "Top 5",
+            type: "effectScatter",
+            coordinateSystem: "geo",
+            data: convertData(toolTipData),
+            symbolSize: function (val) {
+              return 15;
+            },
+            showEffectOn: "render",
+            rippleEffect: {
+              brushType: "stroke",
+            },
+            hoverAnimation: true,
+            label: {
+              normal: {
+                formatter: "{b}",
+                position: "right",
+                show: true,
+                color: "#fff",
+              },
+            },
+            itemStyle: {
+              normal: {
+                color: "#1DE9B6",
+                shadowBlur: 10,
+                shadowColor: "#1DE9B6",
+              },
+            },
+            zlevel: 1,
+          },
+        ],
+      };
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

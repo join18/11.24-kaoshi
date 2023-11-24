@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
+    <title>位置经纬度 + 驾车规划路线</title>
+    <style type="text/css">
+      html,
+      body,
+      #container {
+        width: 80%;
+        height: 600px;
+        margin: 30px auto;
+      }
+      #panel {
+        position: fixed;
+        background-color: white;
+        max-height: 90%;
+        overflow-y: auto;
+        top: 10px;
+        right: 10px;
+        width: 280px;
+      }
+
+      #panel .amap-call {
+        background-color: #009cf9;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+
+      #panel .amap-lib-driving {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
+      }
+    </style>
+    <script type="text/javascript">
+      window._AMapSecurityConfig = {
+        securityJsCode: "ec2069e4c6703faff07ebba7ab844639",
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"
+    />
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script
+      type="text/javascript"
+      src="https://webapi.amap.com/maps?v=2.0&key=8caced2187c731e980d3c65320045c58&plugin=AMap.Driving"
+    ></script>
+    <script
+      type=" text/javascript"
+      src="https://cache.amap.com/lbs/static/addToolbar.js"
+    ></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="panel"></div>
+    <script type="text/javascript">
+      //基本地图加载
+      const position = new AMap.LngLat(113.428198, 34.774311);
+      var map = new AMap.Map("container", {
+        resizeEnable: true,
+        zoom: 13,
+        center: [113.42857, 34.772388], //地图中心
+        resizeEnable: true,
+      });
+      //构造路线导航类
+
+      var driving = new AMap.Driving({
+        map: map,
+        panel: "panel",
+      });
+      driving.search(
+        // new AMap.LngLat(113.427532, 34.765086),
+        new AMap.LngLat(113.428198, 34.774311),
+        new AMap.LngLat(91.118473, 29.654494),
+        function (status, result) {
+          if (status === "complete") {
+            log.success("绘制驾车路线完成");
+          } else {
+            log.error("获取驾车数据失败：" + result);
+          }
+        }
+      );
+
+      function BigInt() {
+        var driving = new AMap.Driving({
+          map: map,
+          panel: "panel",
+        });
+        driving.search(
+          new AMap.LngLat(113.42857, 34.772388),
+          new AMap.LngLat(91.118473, 29.654494),
+          function (status, result) {
+            // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+            if (status === "complete") {
+              log.success("绘制驾车路线完成");
+            } else {
+              log.error("获取驾车数据失败：" + result);
+            }
+          }
+        );
+      }
+      // 根据起终点经纬度规划驾车导航路线
+      // 点标记显示内容，HTML要素字符串
+      var marker = new AMap.Marker({
+        position: position,
+        // 将 html 传给 content
+        content: markerContent,
+        // 以 icon 的 [center bottom] 为原点
+        offset: new AMap.Pixel(-13, -30),
+      });
+      // 点标记显示内容，HTML要素字符串
+      var markerContent =
+        "" +
+        '<div class="custom-content-marker">' +
+        '<div class="close-btn" onclick="clearMarker()">X</div>' +
+        "</div>";
+
+      var marker = new AMap.Marker({
+        position: position,
+        // 将 html 传给 content
+        content: markerContent,
+        // 以 icon 的 [center bottom] 为原点
+        offset: new AMap.Pixel(-13, -30),
+      });
+      map.add(marker);
+    </script>
+  </body>
+</html>
