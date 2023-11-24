@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 60%;
+        margin: auto;
+      }
+
+      th,
+      td {
+        border: 1px solid #fff;
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #333;
+        color: #fff;
+      }
+
+      tr:nth-child(even) {
+        background-color: #555;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #444;
+      }
+      h1 {
+        margin-top: 300px;
+        text-align: center;
+      }
+      a {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>11.24-考试题</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>作业</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      let arr = [
+        {
+          name: "地图",
+          link: "./地图.html",
+        },
+        {
+          name: "轮播图",
+          link: "./轮番图.html",
+        },
+        {
+          name: "折线图",
+          link: "./折线图.html",
+        },
+        {
+          name: "导航",
+          link: "./map导航.html",
+        },
+      ];
+      $(function () {
+        let html = "";
+        arr.forEach((item) => {
+          html += `  <tr>
+          <td>${item.name}</td>
+          <td><a href="${item.link}">${item.link}</a></td>
+        </tr>`;
+        });
+        $("tbody").html(html);
+      });
+    </script>
+  </body>
+</html>
